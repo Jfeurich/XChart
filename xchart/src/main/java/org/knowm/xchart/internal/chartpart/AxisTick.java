@@ -16,18 +16,18 @@
  */
 package org.knowm.xchart.internal.chartpart;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.Series_AxesChart;
 import org.knowm.xchart.internal.chartpart.Axis.Direction;
 import org.knowm.xchart.style.AxesChartStyler;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
 /**
  * An axis tick
  */
-public class AxisTick<ST extends AxesChartStyler, S extends Series> implements ChartPart {
+public class AxisTick<S extends Series> implements ChartPart {
 
   private final Chart<AxesChartStyler, Series_AxesChart> chart;
   private Rectangle2D bounds;
@@ -45,12 +45,12 @@ public class AxisTick<ST extends AxesChartStyler, S extends Series> implements C
    * @param chart
    * @param direction
    */
-  protected AxisTick(Chart<AxesChartStyler, Series_AxesChart> chart, Direction direction) {
+  AxisTick(Chart<AxesChartStyler, Series_AxesChart> chart, Direction direction) {
 
     this.chart = chart;
     this.direction = direction;
-    axisTickLabels = new AxisTickLabels<AxesChartStyler, Series_AxesChart>(chart, direction);
-    axisTickMarks = new AxisTickMarks<AxesChartStyler, Series_AxesChart>(chart, direction);
+    axisTickLabels = new AxisTickLabels<>(chart, direction);
+    axisTickMarks = new AxisTickMarks<>(chart, direction);
   }
 
   @Override
@@ -76,12 +76,7 @@ public class AxisTick<ST extends AxesChartStyler, S extends Series> implements C
           axisTickLabels.getBounds().getWidth() + chart.getStyler().getAxisTickPadding() + axisTickMarks.getBounds().getWidth(),
 
           axisTickMarks.getBounds().getHeight()
-
       );
-
-      // g.setColor(Color.red);
-      // g.draw(bounds);
-
     }
     else if (direction == Axis.Direction.X && chart.getStyler().isXAxisTicksVisible()) {
 
@@ -99,15 +94,10 @@ public class AxisTick<ST extends AxesChartStyler, S extends Series> implements C
           axisTickMarks.getBounds().getHeight() + chart.getStyler().getAxisTickPadding() + axisTickLabels.getBounds().getHeight()
 
       );
-
-      // g.setColor(Color.red);
-      // g.draw(bounds);
-
     }
     else {
       bounds = new Rectangle2D.Double();
     }
-
   }
 
   // Getters /////////////////////////////////////////////////
