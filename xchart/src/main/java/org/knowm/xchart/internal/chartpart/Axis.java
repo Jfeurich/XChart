@@ -16,30 +16,28 @@
  */
 package org.knowm.xchart.internal.chartpart;
 
-import java.awt.Graphics2D;
-import java.awt.Shape;
+import org.knowm.xchart.internal.Series_AxesChart;
+import org.knowm.xchart.style.AxesChartStyler;
+import org.knowm.xchart.style.CategoryStyler;
+import org.knowm.xchart.style.Styler.LegendPosition;
+
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-import org.knowm.xchart.internal.Series;
-import org.knowm.xchart.internal.Series_AxesChart;
-import org.knowm.xchart.style.AxesChartStyler;
-import org.knowm.xchart.style.CategoryStyler;
-import org.knowm.xchart.style.Styler.LegendPosition;
-
 /**
  * Axis
  *
  * @author timmolter
  */
-public class Axis<ST extends AxesChartStyler, S extends Series> implements ChartPart {
+public class Axis implements ChartPart {
 
   public enum AxisDataType {
 
-    Number, Date, String;
+    Number, Date, String
   }
 
   private final Chart<AxesChartStyler, Series_AxesChart> chart;
@@ -54,7 +52,7 @@ public class Axis<ST extends AxesChartStyler, S extends Series> implements Chart
   private AxisTitle<AxesChartStyler, Series_AxesChart> axisTitle;
 
   /** the axis tick */
-  private AxisTick<AxesChartStyler, Series_AxesChart> axisTick;
+  private AxisTick<Series_AxesChart> axisTick;
 
   /** the axis tick calculator */
   private AxisTickCalculator_ axisTickCalculator;
@@ -89,7 +87,7 @@ public class Axis<ST extends AxesChartStyler, S extends Series> implements Chart
 
     this.direction = direction;
     axisTitle = new AxisTitle<AxesChartStyler, Series_AxesChart>(chart, direction);
-    axisTick = new AxisTick<AxesChartStyler, Series_AxesChart>(chart, direction);
+    axisTick = new AxisTick<Series_AxesChart>(chart, direction);
     // resetMinMax();
   }
 
@@ -394,7 +392,7 @@ public class Axis<ST extends AxesChartStyler, S extends Series> implements Chart
     this.max = max;
   }
 
-  protected AxisTick<AxesChartStyler, Series_AxesChart> getAxisTick() {
+  protected AxisTick<Series_AxesChart> getAxisTick() {
 
     return axisTick;
   }

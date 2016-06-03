@@ -46,7 +46,7 @@ public class CategorySeries extends Series_AxesChart {
 
     private final LegendRenderType legendRenderType;
 
-    private CategorySeriesRenderStyle(LegendRenderType legendRenderType) {
+    CategorySeriesRenderStyle(LegendRenderType legendRenderType) {
       this.legendRenderType = legendRenderType;
     }
 

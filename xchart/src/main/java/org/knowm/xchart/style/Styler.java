@@ -56,7 +56,7 @@ public abstract class Styler {
 
   public enum TextAlignment {
 
-    Left, Centre, Right;
+    Left, Centre, Right
   }
 
   /** the default Theme */
@@ -210,6 +210,14 @@ public abstract class Styler {
 
     this.seriesMarkers = seriesMarkers;
     return this;
+  }
+
+  /**
+   * Set the chart title font
+   *  
+   */
+  public Styler setChartTitleFont() {
+    return setChartTitleFont();
   }
 
   /**
@@ -390,11 +398,6 @@ public abstract class Styler {
     return legendPadding;
   }
 
-  /**
-   * Set the chart legend series line length
-   *
-   * @param legendPadding
-   */
   public Styler setLegendSeriesLineLength(int legendSeriesLineLength) {
 
     if (legendSeriesLineLength < 0) {
