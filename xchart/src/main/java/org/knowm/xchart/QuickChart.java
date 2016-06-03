@@ -27,8 +27,8 @@ import org.knowm.xchart.style.markers.SeriesMarkers;
  */
 public final class QuickChart {
 
-  private final static int WIDTH = 600;
-  private final static int HEIGHT = 400;
+  private static final int WIDTH = 600;
+  private static final int HEIGHT = 400;
 
   /**
    * private Constructor

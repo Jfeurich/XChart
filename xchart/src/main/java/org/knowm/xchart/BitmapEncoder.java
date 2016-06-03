@@ -54,7 +54,7 @@ public final class BitmapEncoder {
   }
 
   public enum BitmapFormat {
-    PNG, JPG, BMP, GIF;
+    PNG, JPG, BMP, GIF
   }
 
   /**
@@ -181,7 +181,7 @@ public final class BitmapEncoder {
    * @throws FileNotFoundException
    * @throws IOException
    */
-  public static void saveJPGWithQuality(Chart chart, String fileName, float quality) throws FileNotFoundException, IOException {
+  public static void saveJPGWithQuality(Chart chart, String fileName, float quality) throws IOException {
 
     BufferedImage bufferedImage = getBufferedImage(chart);
 

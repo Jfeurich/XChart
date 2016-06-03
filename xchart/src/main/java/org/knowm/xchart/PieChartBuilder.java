@@ -23,10 +23,6 @@ import org.knowm.xchart.internal.ChartBuilder;
  */
 public class PieChartBuilder extends ChartBuilder<PieChartBuilder, PieChart> {
 
-  public PieChartBuilder() {
-
-  }
-
   /**
    * return fully built ChartPie
    *

@@ -114,12 +114,6 @@ public class PieChart extends Chart<PieStyler, PieSeries> {
 
   @Override
   public void paint(Graphics2D g) {
-
-    // Sanity checks
-    // if (getSeriesMap().isEmpty()) {
-    // throw new RuntimeException("No series defined for Chart!!!");
-    // }
-
     // set the series types if they are not set. Legend and Plot need it.
     for (PieSeries seriesPie : getSeriesMap().values()) {
       PieSeries.PieSeriesRenderStyle seriesType = seriesPie.getChartPieSeriesRenderStyle(); // would be directly set

@@ -33,6 +33,11 @@ import org.knowm.xchart.style.Styler.ChartTheme;
  */
 public class CSVImporter {
 
+  public static final int X_DATA = 0;
+  public static final int Y_DATA = 1;
+  public static final int ERROR_BARS = 2;
+  public static final String DELIMITER = ",";
+
   public enum DataOrientation {
 
     Rows, Columns
@@ -49,13 +54,7 @@ public class CSVImporter {
   public static XYChart getChartFromCSVDir(String path2Directory, DataOrientation dataOrientation, int width, int height, ChartTheme chartTheme) {
 
     // 1. get the directory, name chart the dir name
-    XYChart chart = null;
-    if (chartTheme != null) {
-      chart = new XYChart(width, height, chartTheme);
-    }
-    else {
-      chart = new XYChart(width, height);
-    }
+    XYChart chart = getChart(width, height, chartTheme);
 
     // 2. get all the csv files in the dir
     File[] csvFiles = getAllFiles(path2Directory, ".*.csv");
@@ -63,7 +62,7 @@ public class CSVImporter {
     // 3. create a series for each file, naming the series the file name
     for (int i = 0; i < csvFiles.length; i++) {
       File csvFile = csvFiles[i];
-      String[] xAndYData = null;
+      String[] xAndYData;
       if (dataOrientation == DataOrientation.Rows) {
         xAndYData = getSeriesDataFromCSVRows(csvFile);
       }
@@ -71,14 +70,33 @@ public class CSVImporter {
         xAndYData = getSeriesDataFromCSVColumns(csvFile);
       }
 
-      if (xAndYData[2] == null || xAndYData[2].trim().equalsIgnoreCase("")) {
-        chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[0]), getAxisData(xAndYData[1]));
-      }
-      else {
-        chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[0]), getAxisData(xAndYData[1]), getAxisData(xAndYData[2]));
-      }
+      addSeriesToChart(chart, csvFile, xAndYData);
     }
 
+    return chart;
+  }
+
+  private static void addSeriesToChart(XYChart chart, File csvFile, String[] xAndYData) {
+    if (hasErrorBars(xAndYData[ERROR_BARS])) {
+      chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[X_DATA]), getAxisData(xAndYData[Y_DATA]));
+    }
+    else {
+      chart.addSeries(csvFile.getName().substring(0, csvFile.getName().indexOf(".csv")), getAxisData(xAndYData[X_DATA]), getAxisData(xAndYData[Y_DATA]), getAxisData(xAndYData[ERROR_BARS]));
+    }
+  }
+
+  private static boolean hasErrorBars(String string) {
+    return string == null || string.trim().equalsIgnoreCase("");
+  }
+
+  private static XYChart getChart(int width, int height, ChartTheme chartTheme) {
+    XYChart chart;
+    if (chartTheme != null) {
+      chart = new XYChart(width, height, chartTheme);
+    }
+    else {
+      chart = new XYChart(width, height);
+    }
     return chart;
   }
 
@@ -90,7 +108,6 @@ public class CSVImporter {
    * @return
    */
   public static XYChart getChartFromCSVDir(String path2Directory, DataOrientation dataOrientation, int width, int height) {
-
     return getChartFromCSVDir(path2Directory, dataOrientation, width, height, null);
   }
 
@@ -132,22 +149,21 @@ public class CSVImporter {
    * @return
    */
   private static String[] getSeriesDataFromCSVColumns(File csvFile) {
-
     String[] xAndYData = new String[3];
-    xAndYData[0] = "";
-    xAndYData[1] = "";
-    xAndYData[2] = "";
+    xAndYData[X_DATA] = "";
+    xAndYData[Y_DATA] = "";
+    xAndYData[ERROR_BARS] = "";
 
     BufferedReader bufferedReader = null;
     try {
       String line = null;
       bufferedReader = new BufferedReader(new FileReader(csvFile));
       while ((line = bufferedReader.readLine()) != null) {
-        String[] dataArray = line.split(",");
-        xAndYData[0] += dataArray[0] + ",";
-        xAndYData[1] += dataArray[1] + ",";
+        String[] dataArray = line.split(DELIMITER);
+        xAndYData[X_DATA] += dataArray[X_DATA] + DELIMITER;
+        xAndYData[Y_DATA] += dataArray[Y_DATA] + DELIMITER;
         if (dataArray.length > 2) {
-          xAndYData[2] += dataArray[2] + ",";
+          xAndYData[ERROR_BARS] += dataArray[ERROR_BARS] + DELIMITER;
         }
       }
 
@@ -171,8 +187,8 @@ public class CSVImporter {
    */
   private static List<Number> getAxisData(String stringData) {
 
-    List<Number> axisData = new ArrayList<Number>();
-    String[] stringDataArray = stringData.split(",");
+    List<Number> axisData = new ArrayList<>();
+    String[] stringDataArray = stringData.split(DELIMITER);
     for (int i = 0; i < stringDataArray.length; i++) {
       String dataPoint = stringDataArray[i];
       try {
@@ -180,7 +196,7 @@ public class CSVImporter {
         axisData.add(value);
       } catch (NumberFormatException e) {
         System.out.println("Error parsing >" + dataPoint + "< !");
-        throw (e);
+        throw e;
       }
     }
     return axisData;
@@ -197,7 +213,7 @@ public class CSVImporter {
 
     File[] allFiles = getAllFiles(dirName);
 
-    List<File> matchingFiles = new ArrayList<File>();
+    List<File> matchingFiles = new ArrayList<>();
 
     for (int i = 0; i < allFiles.length; i++) {
 
@@ -223,7 +239,7 @@ public class CSVImporter {
     File[] files = dir.listFiles(); // returns files and folders
 
     if (files != null) {
-      List<File> filteredFiles = new ArrayList<File>();
+      List<File> filteredFiles = new ArrayList<>();
       for (int i = 0; i < files.length; i++) {
 
         if (files[i].isFile()) {

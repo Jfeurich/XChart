@@ -35,6 +35,9 @@ import org.knowm.xchart.internal.Series_AxesChart;
  */
 public class CSVExporter {
 
+  public static final int STRING_LENGTH = 256; // Java default is 16, probably too small
+  public static final String DELIMITER = ",";
+
   /**
    * Write a Chart series as rows in a CSV file.
    *
@@ -48,12 +51,12 @@ public class CSVExporter {
     try {
 
       out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(newFile), "UTF8"));
-      String csv = join(series.getXData(), ",") + System.getProperty("line.separator");
+      String csv = join(series.getXData(), DELIMITER) + System.getProperty("line.separator");
       out.write(csv);
-      csv = join(series.getYData(), ",") + System.getProperty("line.separator");
+      csv = join(series.getYData(), DELIMITER) + System.getProperty("line.separator");
       out.write(csv);
       if (series.getErrorBars() != null) {
-        csv = join(series.getErrorBars(), ",") + System.getProperty("line.separator");
+        csv = join(series.getErrorBars(), DELIMITER) + System.getProperty("line.separator");
         out.write(csv);
       }
 
@@ -101,15 +104,12 @@ public class CSVExporter {
           errorBarValue = itrErrorBar.next();
         }
         StringBuilder sb = new StringBuilder();
-        sb.append(xDataPoint + ",");
-        sb.append(yDataPoint + ",");
+        sb.append(xDataPoint + DELIMITER);
+        sb.append(yDataPoint + DELIMITER);
         if (errorBarValue != null) {
-          sb.append(errorBarValue + ",");
+          sb.append(errorBarValue + DELIMITER);
         }
         sb.append(System.getProperty("line.separator"));
-
-        // String csv = xDataPoint + "," + yDataPoint + errorBarValue == null ? "" : ("," + errorBarValue) + System.getProperty("line.separator");
-        // String csv = + yDataPoint + System.getProperty("line.separator");
         out.write(sb.toString());
       }
 
@@ -134,7 +134,6 @@ public class CSVExporter {
    * @return
    */
   private static String join(Collection<? extends Object> collection, String separator) {
-
     if (collection == null) {
       return null;
     }
@@ -151,22 +150,29 @@ public class CSVExporter {
       return first == null ? "" : first.toString();
     }
 
+    return appendStrings(separator, iterator, first);
+  }
+
+  private static String appendStrings(String separator, Iterator<? extends Object> iterator, Object first) {
     // two or more elements
-    StringBuffer buf = new StringBuffer(256); // Java default is 16, probably too small
+    StringBuffer buf = new StringBuffer(STRING_LENGTH);
     if (first != null) {
       buf.append(first);
     }
 
     while (iterator.hasNext()) {
-      if (separator != null) {
-        buf.append(separator);
-      }
-      Object obj = iterator.next();
-      if (obj != null) {
-        buf.append(obj);
-      }
+      appendString(separator, iterator, buf);
     }
     return buf.toString();
+  }
 
+  private static void appendString(String separator, Iterator<? extends Object> iterator, StringBuffer buf) {
+    if (separator != null) {
+      buf.append(separator);
+    }
+    Object obj = iterator.next();
+    if (obj != null) {
+      buf.append(obj);
+    }
   }
 }
