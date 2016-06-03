@@ -16,14 +16,14 @@
  */
 package org.knowm.xchart;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
 import org.knowm.xchart.internal.Series_AxesChart;
 import org.knowm.xchart.internal.chartpart.Axis.AxisDataType;
 import org.knowm.xchart.internal.chartpart.RenderableSeries;
 import org.knowm.xchart.internal.chartpart.RenderableSeries.LegendRenderType;
+
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * A Series containing X and Y data to be plotted on a Chart
@@ -42,7 +42,7 @@ public class XYSeries extends Series_AxesChart {
 
     private final LegendRenderType legendRenderType;
 
-    private XYSeriesRenderStyle(LegendRenderType legendRenderType) {
+    XYSeriesRenderStyle(LegendRenderType legendRenderType) {
       this.legendRenderType = legendRenderType;
     }
 

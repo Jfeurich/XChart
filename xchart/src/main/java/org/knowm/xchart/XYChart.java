@@ -16,12 +16,6 @@
  */
 package org.knowm.xchart;
 
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
-import java.util.List;
-
 import org.knowm.xchart.internal.chartpart.AxisPair;
 import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.internal.chartpart.Legend_AxesChart;
@@ -31,6 +25,10 @@ import org.knowm.xchart.internal.style.SeriesColorMarkerLineStyleCycler;
 import org.knowm.xchart.style.Styler.ChartTheme;
 import org.knowm.xchart.style.Theme;
 import org.knowm.xchart.style.XYStyler;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.util.List;
 
 /**
  * @author timmolter
@@ -170,7 +168,7 @@ public class XYChart extends Chart<XYStyler, XYSeries> {
     // Sanity checks
     sanityCheck(seriesName, xData, yData, errorBars);
 
-    XYSeries series = null;
+    XYSeries series;
     if (xData != null) {
 
       // Sanity check
@@ -188,9 +186,6 @@ public class XYChart extends Chart<XYStyler, XYSeries> {
 
     seriesMap.put(seriesName, series);
 
-    // getXAxis().setAxisType(series.getxAxisDataType());
-    // getYAxis().setAxisType(AxisDataType.Number);
-
     return series;
   }
 
@@ -206,15 +201,14 @@ public class XYChart extends Chart<XYStyler, XYSeries> {
     if (yData == null) {
       throw new IllegalArgumentException("Y-Axis data cannot be null!!!");
     }
-    if (yData.size() == 0) {
+    if (yData.isEmpty()) {
       throw new IllegalArgumentException("Y-Axis data cannot be empty!!!");
     }
-    if (xData != null && xData.size() == 0) {
+    if (xData != null && xData.isEmpty()) {
       throw new IllegalArgumentException("X-Axis data cannot be empty!!!");
     }
-    if (errorBars != null && errorBars.size() != yData.size()) {
+    if (errorBars != null && errorBars.size() != yData.size())
       throw new IllegalArgumentException("Error bars and Y-Axis sizes are not the same!!!");
-    }
   }
 
   @Override
@@ -227,11 +221,6 @@ public class XYChart extends Chart<XYStyler, XYSeries> {
 
   @Override
   public void paint(Graphics2D g) {
-
-    // Sanity checks
-    // if (getSeriesMap().isEmpty()) {
-    // throw new RuntimeException("No series defined for Chart!!!");
-    // }
 
     // set the series render styles if they are not set. Legend and Plot need it.
     for (XYSeries seriesXY : getSeriesMap().values()) {

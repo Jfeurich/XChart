@@ -16,15 +16,16 @@
  */
 package org.knowm.xchart;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.knowm.xchart.internal.chartpart.Chart;
-
 import de.erichseifert.vectorgraphics2d.EPSGraphics2D;
 import de.erichseifert.vectorgraphics2d.PDFGraphics2D;
 import de.erichseifert.vectorgraphics2d.ProcessingPipeline;
 import de.erichseifert.vectorgraphics2d.SVGGraphics2D;
+import org.knowm.xchart.internal.chartpart.Chart;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import static java.lang.System.out;
 
 /**
  * A helper class with static methods for saving Charts as bitmaps
@@ -41,12 +42,12 @@ public final class VectorGraphicsEncoder {
   }
 
   public enum VectorGraphicsFormat {
-    EPS, PDF, SVG;
+    EPS, PDF, SVG
   }
 
   public static void saveVectorGraphic(Chart chart, String fileName, VectorGraphicsFormat vectorGraphicsFormat) throws IOException {
 
-    ProcessingPipeline g = null;
+    ProcessingPipeline g = new EPSGraphics2D(0.0,0.0,0.0,0.0);
 
     switch (vectorGraphicsFormat) {
     case EPS:
@@ -70,7 +71,12 @@ public final class VectorGraphicsEncoder {
 
     try {
       file.write(g.getBytes());
-    } finally {
+    }
+    catch (IOException e) {
+      out.println(e);
+    }
+    finally
+    {
       file.close();
     }
   }

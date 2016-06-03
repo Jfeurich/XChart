@@ -26,10 +26,6 @@ public class XYChartBuilder extends ChartBuilder<XYChartBuilder, XYChart> {
   String xAxisTitle = "";
   String yAxisTitle = "";
 
-  public XYChartBuilder() {
-
-  }
-
   public XYChartBuilder xAxisTitle(String xAxisTitle) {
 
     this.xAxisTitle = xAxisTitle;
