@@ -170,7 +170,7 @@ public class CategoryChart extends Chart<CategoryStyler, CategorySeries> {
     // Sanity checks
     sanityCheck(seriesName, xData, yData, errorBars);
 
-    CategorySeries series = null;
+    CategorySeries series;
     if (xData != null) {
 
       // Sanity check
@@ -188,9 +188,6 @@ public class CategoryChart extends Chart<CategoryStyler, CategorySeries> {
 
     seriesMap.put(seriesName, series);
 
-    // getXAxis().setAxisType(series.getxAxisDataType());
-    // getYAxis().setAxisType(AxisDataType.Number);
-
     return series;
   }
 
@@ -206,10 +203,10 @@ public class CategoryChart extends Chart<CategoryStyler, CategorySeries> {
     if (yData == null) {
       throw new IllegalArgumentException("Y-Axis data cannot be null!!!");
     }
-    if (yData.size() == 0) {
+    if (yData.isEmpty()) {
       throw new IllegalArgumentException("Y-Axis data cannot be empty!!!");
     }
-    if (xData != null && xData.size() == 0) {
+    if (xData != null && xData.isEmpty()) {
       throw new IllegalArgumentException("X-Axis data cannot be empty!!!");
     }
     if (errorBars != null && errorBars.size() != yData.size()) {
@@ -227,12 +224,6 @@ public class CategoryChart extends Chart<CategoryStyler, CategorySeries> {
 
   @Override
   public void paint(Graphics2D g) {
-
-    // Sanity checks
-    // if (getSeriesMap().isEmpty()) {
-    // throw new RuntimeException("No series defined for Chart!!!");
-    // }
-
     // set the series render styles if they are not set. Legend and Plot need it.
     for (CategorySeries seriesCategory : getSeriesMap().values()) {
       CategorySeries.CategorySeriesRenderStyle seriesType = seriesCategory.getChartCategorySeriesRenderStyle(); // would be directly set

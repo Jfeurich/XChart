@@ -26,10 +26,6 @@ public class CategoryChartBuilder extends ChartBuilder<CategoryChartBuilder, Cat
   String xAxisTitle = "";
   String yAxisTitle = "";
 
-  public CategoryChartBuilder() {
-
-  }
-
   public CategoryChartBuilder xAxisTitle(String xAxisTitle) {
 
     this.xAxisTitle = xAxisTitle;
