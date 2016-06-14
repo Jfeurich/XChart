@@ -16,7 +16,10 @@
  */
 package org.knowm.xchart.internal.chartpart;
 
-import java.awt.Shape;
+import org.knowm.xchart.internal.chartpart.Axis.Direction;
+import org.knowm.xchart.style.AxesChartStyler;
+
+import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
@@ -24,16 +27,13 @@ import java.awt.geom.Rectangle2D;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.knowm.xchart.internal.chartpart.Axis.Direction;
-import org.knowm.xchart.style.AxesChartStyler;
-
 /**
  * @author timmolter
  */
 public abstract class AxisTickCalculator_ {
 
   /** the List of tick label position in pixels */
-  protected List<Double> tickLocations = new LinkedList<Double>();;
+  protected List<Double> tickLocations = new LinkedList<Double>();
 
   /** the List of tick label values */
   protected List<String> tickLabels = new LinkedList<String>();
@@ -57,7 +57,7 @@ public abstract class AxisTickCalculator_ {
    * @param maxValue
    * @param styler
    */
-  public AxisTickCalculator_(Direction axisDirection, double workingSpace, double minValue, double maxValue, AxesChartStyler styler) {
+  AxisTickCalculator_(Direction axisDirection, double workingSpace, double minValue, double maxValue, AxesChartStyler styler) {
 
     this.axisDirection = axisDirection;
     this.workingSpace = workingSpace;
@@ -111,21 +111,13 @@ public abstract class AxisTickCalculator_ {
         sampleLabel = tickLabels.get(i);
       }
     }
-    // System.out.println("longestLabel: " + sampleLabel);
 
     TextLayout textLayout = new TextLayout(sampleLabel, styler.getAxisTickLabelsFont(), new FontRenderContext(null, true, false));
     AffineTransform rot = styler.getXAxisLabelRotation() == 0 ? null : AffineTransform.getRotateInstance(-1 * Math.toRadians(styler.getXAxisLabelRotation()));
     Shape shape = textLayout.getOutline(rot);
     Rectangle2D rectangle = shape.getBounds();
     double largestLabelWidth = rectangle.getWidth();
-    // System.out.println("largestLabelWidth: " + largestLabelWidth);
-    // System.out.println("tickSpacingHint: " + tickSpacingHint);
-
-    // if (largestLabelWidth * 1.1 >= tickSpacingHint) {
-    // System.out.println("WILL NOT FIT!!!");
-    // }
 
     return (largestLabelWidth * 1.1 < tickSpacingHint);
-
   }
 }

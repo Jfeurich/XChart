@@ -16,33 +16,20 @@
  */
 package org.knowm.xchart;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import org.knowm.xchart.BitmapEncoder.BitmapFormat;
+import org.knowm.xchart.VectorGraphicsEncoder.VectorGraphicsFormat;
+import org.knowm.xchart.internal.Series_AxesChart;
+import org.knowm.xchart.internal.chartpart.Chart;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.swing.AbstractAction;
-import javax.swing.JFileChooser;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.KeyStroke;
-import javax.swing.filechooser.FileFilter;
-
-import org.knowm.xchart.BitmapEncoder.BitmapFormat;
-import org.knowm.xchart.VectorGraphicsEncoder.VectorGraphicsFormat;
-import org.knowm.xchart.internal.Series_AxesChart;
-import org.knowm.xchart.internal.chartpart.Chart;
 
 /**
  * A Swing JPanel that contains a Chart
@@ -133,52 +120,54 @@ public class XChartPanel<T extends Chart> extends JPanel {
     // VectorGraphics2D is optional, so if it's on the classpath, allow saving charts as vector graphic
     try {
       Class.forName("de.erichseifert.vectorgraphics2d.VectorGraphics2D");
-      // it exists on the classpath
       fileChooser.addChoosableFileFilter(new SuffixSaveFilter("svg"));
       fileChooser.addChoosableFileFilter(new SuffixSaveFilter("eps"));
       fileChooser.addChoosableFileFilter(new SuffixSaveFilter("pdf"));
     } catch (ClassNotFoundException e) {
-      // it does not exist on the classpath
+      e.printStackTrace();
     }
 
     fileChooser.setAcceptAllFileFilterUsed(false);
 
     fileChooser.setFileFilter(pngFileFilter);
 
-    if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-
-      if (fileChooser.getSelectedFile() != null) {
-        File theFileToSave = fileChooser.getSelectedFile();
+    if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION && fileChooser.getSelectedFile() != null) {
+      File theFileToSave = fileChooser.getSelectedFile();
+      if (fileChooser.getFileFilter() == null) {
         try {
-          if (fileChooser.getFileFilter() == null) {
-            BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath().toString(), BitmapFormat.PNG);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.jpg,*.JPG")) {
-            BitmapEncoder.saveJPGWithQuality(chart, BitmapEncoder.addFileExtension(theFileToSave.getCanonicalPath().toString(), BitmapFormat.JPG), 1.0f);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.png,*.PNG")) {
-            BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath().toString(), BitmapFormat.PNG);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.bmp,*.BMP")) {
-            BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath().toString(), BitmapFormat.BMP);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.gif,*.GIF")) {
-            BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath().toString(), BitmapFormat.GIF);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.svg,*.SVG")) {
-            VectorGraphicsEncoder.saveVectorGraphic(chart, theFileToSave.getCanonicalPath().toString(), VectorGraphicsFormat.SVG);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.eps,*.EPS")) {
-            VectorGraphicsEncoder.saveVectorGraphic(chart, theFileToSave.getCanonicalPath().toString(), VectorGraphicsFormat.EPS);
-          }
-          else if (fileChooser.getFileFilter().getDescription().equals("*.pdf,*.PDF")) {
-            VectorGraphicsEncoder.saveVectorGraphic(chart, theFileToSave.getCanonicalPath().toString(), VectorGraphicsFormat.PDF);
-          }
+          BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath(), BitmapFormat.PNG);
+          fileDingeser(fileChooser, theFileToSave);
         } catch (IOException e) {
           e.printStackTrace();
         }
       }
+    }
+  }
 
+  private void fileDingeser(JFileChooser fileChooser, File theFileToSave) throws IOException {
+    switch (fileChooser.getFileFilter().getDescription()) {
+      case "*.jpg,*.JPG":
+        BitmapEncoder.saveJPGWithQuality(chart, BitmapEncoder.addFileExtension(theFileToSave.getCanonicalPath(), BitmapFormat.JPG), 1.0f);
+        break;
+      case "*.png,*.PNG":
+        BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath(), BitmapFormat.PNG);
+        break;
+      case "*.bmp,*.BMP":
+        BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath(), BitmapFormat.BMP);
+        break;
+      case "*.gif,*.GIF":
+        BitmapEncoder.saveBitmap(chart, theFileToSave.getCanonicalPath(), BitmapFormat.GIF);
+        break;
+      case "*.svg,*.SVG":
+        VectorGraphicsEncoder.saveVectorGraphic(chart, theFileToSave.getCanonicalPath(), VectorGraphicsFormat.SVG);
+        break;
+      case "*.eps,*.EPS":
+        VectorGraphicsEncoder.saveVectorGraphic(chart, theFileToSave.getCanonicalPath(), VectorGraphicsFormat.EPS);
+        break;
+      case "*.pdf,*.PDF":
+        VectorGraphicsEncoder.saveVectorGraphic(chart, theFileToSave.getCanonicalPath(), VectorGraphicsFormat.PDF);
+        break;
+      default : break;
     }
   }
 
@@ -247,38 +236,39 @@ public class XChartPanel<T extends Chart> extends JPanel {
 
     JMenuItem saveAsMenuItem;
 
-    public XChartPanelPopupMenu() {
+    XChartPanelPopupMenu() {
 
       saveAsMenuItem = new JMenuItem(saveAsString);
-      saveAsMenuItem.addMouseListener(new MouseListener() {
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-          showSaveAsDialog();
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-
-        }
-      });
+      saveAsMenuItem.addMouseListener(new MyMouseListener());
       add(saveAsMenuItem);
+    }
+
+    private class MyMouseListener implements MouseListener {
+
+      @Override
+      public void mouseReleased(MouseEvent e) {
+        showSaveAsDialog();
+      }
+
+      @Override
+      public void mousePressed(MouseEvent e) {
+        // empty because Override
+      }
+
+      @Override
+      public void mouseExited(MouseEvent e) {
+        // empty because Override
+      }
+
+      @Override
+      public void mouseEntered(MouseEvent e) {
+        // empty because Override
+      }
+
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        // empty because Override
+      }
     }
   }
 
@@ -301,7 +291,7 @@ public class XChartPanel<T extends Chart> extends JPanel {
     }
     if (newXData == null) {
       // generate X-Data
-      List<Integer> generatedXData = new ArrayList<Integer>();
+      List<Integer> generatedXData = new ArrayList<>();
       for (int i = 1; i <= newYData.size(); i++) {
         generatedXData.add(i);
       }

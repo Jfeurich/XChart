@@ -16,14 +16,14 @@
  */
 package org.knowm.xchart.internal.chartpart;
 
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-
 import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.Series_AxesChart;
 import org.knowm.xchart.style.AxesChartStyler;
 import org.knowm.xchart.style.CategoryStyler;
+
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * @author timmolter
@@ -32,8 +32,8 @@ public class AxisPair<ST extends AxesChartStyler, S extends Series> implements C
 
   private final Chart<AxesChartStyler, Series_AxesChart> chart;
 
-  private final Axis<AxesChartStyler, Series_AxesChart> xAxis;
-  private final Axis<AxesChartStyler, Series_AxesChart> yAxis;
+  private final Axis xAxis;
+  private final Axis yAxis;
 
   /**
    * Constructor
@@ -45,8 +45,8 @@ public class AxisPair<ST extends AxesChartStyler, S extends Series> implements C
     this.chart = chart;
 
     // add axes
-    xAxis = new Axis<AxesChartStyler, Series_AxesChart>(chart, Axis.Direction.X);
-    yAxis = new Axis<AxesChartStyler, Series_AxesChart>(chart, Axis.Direction.Y);
+    xAxis = new Axis(chart, Axis.Direction.X);
+    yAxis = new Axis(chart, Axis.Direction.Y);
   }
 
   @Override
@@ -155,12 +155,12 @@ public class AxisPair<ST extends AxesChartStyler, S extends Series> implements C
 
   // Getters & Setters /////////////////////////////////////////////////
 
-  protected Axis<AxesChartStyler, Series_AxesChart> getXAxis() {
+  protected Axis getXAxis() {
 
     return xAxis;
   }
 
-  protected Axis<AxesChartStyler, Series_AxesChart> getYAxis() {
+  protected Axis getYAxis() {
 
     return yAxis;
   }

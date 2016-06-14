@@ -26,8 +26,8 @@ import java.awt.geom.Rectangle2D;
  */
 public interface ChartPart {
 
-  public Rectangle2D getBounds();
+  Rectangle2D getBounds();
 
-  public void paint(final Graphics2D g);
+  void paint(final Graphics2D g);
 
 }
