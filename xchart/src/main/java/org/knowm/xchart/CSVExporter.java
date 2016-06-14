@@ -97,20 +97,7 @@ public class CSVExporter {
         itrErrorBar = errorBarData.iterator();
       }
       while (itrx.hasNext()) {
-        Number xDataPoint = (Number) itrx.next();
-        Number yDataPoint = itry.next();
-        Number errorBarValue = null;
-        if (itrErrorBar != null) {
-          errorBarValue = itrErrorBar.next();
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append(xDataPoint + DELIMITER);
-        sb.append(yDataPoint + DELIMITER);
-        if (errorBarValue != null) {
-          sb.append(errorBarValue + DELIMITER);
-        }
-        sb.append(System.getProperty("line.separator"));
-        out.write(sb.toString());
+        addDataPoint(out, itrx, itry, itrErrorBar);
       }
 
     } catch (Exception e) {
@@ -126,6 +113,23 @@ public class CSVExporter {
       }
     }
 
+  }
+
+  private static void addDataPoint(Writer out, Iterator<?> itrx, Iterator<? extends Number> itry, Iterator<? extends Number> itrErrorBar) throws IOException {
+    Number xDataPoint = (Number) itrx.next();
+    Number yDataPoint = itry.next();
+    Number errorBarValue = null;
+    if (itrErrorBar != null) {
+      errorBarValue = itrErrorBar.next();
+    }
+    StringBuilder sb = new StringBuilder();
+    sb.append(xDataPoint + DELIMITER);
+    sb.append(yDataPoint + DELIMITER);
+    if (errorBarValue != null) {
+      sb.append(errorBarValue + DELIMITER);
+    }
+    sb.append(System.getProperty("line.separator"));
+    out.write(sb.toString());
   }
 
   /**
@@ -161,18 +165,14 @@ public class CSVExporter {
     }
 
     while (iterator.hasNext()) {
-      appendString(separator, iterator, buf);
+      if (separator != null) {
+        buf.append(separator);
+      }
+      Object obj = iterator.next();
+      if (obj != null) {
+        buf.append(obj);
+      }
     }
     return buf.toString();
-  }
-
-  private static void appendString(String separator, Iterator<? extends Object> iterator, StringBuffer buf) {
-    if (separator != null) {
-      buf.append(separator);
-    }
-    Object obj = iterator.next();
-    if (obj != null) {
-      buf.append(obj);
-    }
   }
 }
