@@ -16,9 +16,9 @@
  */
 package org.knowm.xchart.charts;
 
-import java.util.List;
-
 import org.knowm.xchart.style.markers.SeriesMarkers;
+
+import java.util.List;
 
 /**
  * A convenience class for making Charts with one line of code
@@ -43,7 +43,7 @@ public final class QuickChart {
    * @param chartTitle the Chart title
    * @param xTitle The X-Axis title
    * @param yTitle The Y-Axis title
-   * @param seriesNames The name of the series
+   * @param seriesName The name of the series
    * @param xData An array containing the X-Axis data
    * @param yData An array containing Y-Axis data
    * @return a Chart Object
@@ -52,43 +52,38 @@ public final class QuickChart {
 
     double[][] yData2d = { yData };
     if (seriesName == null) {
-      return getChart(chartTitle, xTitle, yTitle, null, xData, yData2d);
+      return getChart(new ChartData(chartTitle, xTitle, yTitle, null, xData, yData2d));
     }
     else {
-      return getChart(chartTitle, xTitle, yTitle, new String[] { seriesName }, xData, yData2d);
+      return getChart(new ChartData(chartTitle, xTitle, yTitle, new String[]{seriesName}, xData, yData2d));
     }
   }
 
   /**
    * Creates a Chart with multiple Series for the same X-Axis data with default style
    *
-   * @param chartTitle the Chart title
-   * @param xTitle The X-Axis title
-   * @param yTitle The Y-Axis title
-   * @param seriesNames An array of the name of the multiple series
-   * @param xData An array containing the X-Axis data
-   * @param yData An array of double arrays containing multiple Y-Axis data
-   * @return a Chart Object
+   *
+   * @param chartData@return a Chart Object
    */
-  public static XYChart getChart(String chartTitle, String xTitle, String yTitle, String[] seriesNames, double[] xData, double[][] yData) {
+  public static XYChart getChart(ChartData chartData) {
 
     // Create Chart
     XYChart chart = new XYChart(WIDTH, HEIGHT);
 
     // Customize Chart
-    chart.setTitle(chartTitle);
-    chart.setXAxisTitle(xTitle);
-    chart.setYAxisTitle(yTitle);
+    chart.setTitle(chartData.getChartTitle());
+    chart.setXAxisTitle(chartData.getxTitle());
+    chart.setYAxisTitle(chartData.getyTitle());
 
     // Series
-    for (int i = 0; i < yData.length; i++) {
+    for (int i = 0; i < chartData.getyData().length; i++) {
       XYSeries series;
-      if (seriesNames != null) {
-        series = chart.addSeries(seriesNames[i], xData, yData[i]);
+      if (chartData.getSeriesNames() != null) {
+        series = chart.addSeries(chartData.getSeriesNames()[i], chartData.getxData(), chartData.getyData()[i]);
       }
       else {
         chart.getStyler().setLegendVisible(false);
-        series = chart.addSeries(" " + i, xData, yData[i]);
+        series = chart.addSeries(" " + i, chartData.getxData(), chartData.getyData()[i]);
       }
       series.setMarker(SeriesMarkers.NONE);
     }
@@ -102,7 +97,7 @@ public final class QuickChart {
    * @param chartTitle the Chart title
    * @param xTitle The X-Axis title
    * @param yTitle The Y-Axis title
-   * @param seriesNames The name of the series
+   * @param seriesName The name of the series
    * @param xData A Collection containing the X-Axis data
    * @param yData A Collection containing Y-Axis data
    * @return a Chart Object
