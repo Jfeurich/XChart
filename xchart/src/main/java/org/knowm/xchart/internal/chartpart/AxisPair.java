@@ -16,7 +16,7 @@
  */
 package org.knowm.xchart.internal.chartpart;
 
-import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
+import org.knowm.xchart.charts.CategorySeries.CategorySeriesRenderStyle;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.Series_AxesChart;
 import org.knowm.xchart.style.AxesChartStyler;

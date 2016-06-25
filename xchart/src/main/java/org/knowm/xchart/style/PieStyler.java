@@ -18,7 +18,7 @@ package org.knowm.xchart.style;
 
 import java.awt.Font;
 
-import org.knowm.xchart.PieSeries.PieSeriesRenderStyle;
+import org.knowm.xchart.charts.PieSeries.PieSeriesRenderStyle;
 
 /**
  * @author timmolter

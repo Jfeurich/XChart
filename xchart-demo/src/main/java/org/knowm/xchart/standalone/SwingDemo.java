@@ -19,7 +19,7 @@ package org.knowm.xchart.standalone;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.charts.XChartPanel;
 import org.knowm.xchart.demo.charts.area.AreaChart01;
 
 /**

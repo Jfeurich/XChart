@@ -14,23 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.knowm.xchart;
+package org.knowm.xchart.charts;
 
 import org.knowm.xchart.internal.ChartBuilder;
 
 /**
  * @author timmolter
  */
-public class PieChartBuilder extends ChartBuilder<PieChartBuilder, PieChart> {
+public class XYChartBuilder extends ChartBuilder<XYChartBuilder, XYChart> {
+
+  String xAxisTitle = "";
+  String yAxisTitle = "";
+
+  public XYChartBuilder xAxisTitle(String xAxisTitle) {
+
+    this.xAxisTitle = xAxisTitle;
+    return this;
+  }
+
+  public XYChartBuilder yAxisTitle(String yAxisTitle) {
+
+    this.yAxisTitle = yAxisTitle;
+    return this;
+  }
 
   /**
-   * return fully built ChartPie
+   * return fully built ChartXY
    *
-   * @return a ChartPie
+   * @return a ChartXY
    */
   @Override
-  public PieChart build() {
+  public XYChart build() {
 
-    return new PieChart(this);
+    return new XYChart(this);
   }
 }

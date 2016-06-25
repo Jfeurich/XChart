@@ -16,14 +16,13 @@
  */
 package org.knowm.xchart;
 
-import java.awt.GridLayout;
+import org.knowm.xchart.charts.XChartPanel;
+import org.knowm.xchart.internal.chartpart.Chart;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import org.knowm.xchart.internal.chartpart.Chart;
 
 /**
  * A convenience class used to display a Chart in a barebones Swing application

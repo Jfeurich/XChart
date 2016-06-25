@@ -26,8 +26,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.knowm.xchart.XYSeries;
-import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
+import org.knowm.xchart.charts.XYSeries;
+import org.knowm.xchart.charts.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.Utils;
 import org.knowm.xchart.internal.chartpart.Axis.AxisDataType;

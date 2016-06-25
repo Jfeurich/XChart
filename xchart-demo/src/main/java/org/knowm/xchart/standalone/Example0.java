@@ -16,9 +16,9 @@
  */
 package org.knowm.xchart.standalone;
 
-import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.charts.QuickChart;
 import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
+import org.knowm.xchart.charts.XYChart;
 
 /**
  * Creates a simple Chart using QuickChart

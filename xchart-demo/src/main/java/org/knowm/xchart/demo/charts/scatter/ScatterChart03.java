@@ -17,9 +17,9 @@
 package org.knowm.xchart.demo.charts.scatter;
 
 import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.XYChartBuilder;
-import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
+import org.knowm.xchart.charts.XYChart;
+import org.knowm.xchart.charts.XYChartBuilder;
+import org.knowm.xchart.charts.XYSeries.XYSeriesRenderStyle;
 import org.knowm.xchart.demo.charts.ExampleChart;
 
 /**

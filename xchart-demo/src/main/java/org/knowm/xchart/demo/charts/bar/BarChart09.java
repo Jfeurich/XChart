@@ -19,10 +19,10 @@ package org.knowm.xchart.demo.charts.bar;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.CategoryChartBuilder;
-import org.knowm.xchart.CategorySeries;
-import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
+import org.knowm.xchart.charts.CategoryChart;
+import org.knowm.xchart.charts.CategoryChartBuilder;
+import org.knowm.xchart.charts.CategorySeries;
+import org.knowm.xchart.charts.CategorySeries.CategorySeriesRenderStyle;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.demo.charts.ExampleChart;
 import org.knowm.xchart.style.Styler.ChartTheme;

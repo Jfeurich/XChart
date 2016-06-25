@@ -14,38 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.knowm.xchart;
+package org.knowm.xchart.charts;
 
 import org.knowm.xchart.internal.ChartBuilder;
 
 /**
  * @author timmolter
  */
-public class XYChartBuilder extends ChartBuilder<XYChartBuilder, XYChart> {
+public class CategoryChartBuilder extends ChartBuilder<CategoryChartBuilder, CategoryChart> {
 
   String xAxisTitle = "";
   String yAxisTitle = "";
 
-  public XYChartBuilder xAxisTitle(String xAxisTitle) {
+  public CategoryChartBuilder xAxisTitle(String xAxisTitle) {
 
     this.xAxisTitle = xAxisTitle;
     return this;
   }
 
-  public XYChartBuilder yAxisTitle(String yAxisTitle) {
+  public CategoryChartBuilder yAxisTitle(String yAxisTitle) {
 
     this.yAxisTitle = yAxisTitle;
     return this;
   }
 
   /**
-   * return fully built ChartXY
+   * return fully built Chart_Category
    *
-   * @return a ChartXY
+   * @return a Chart_Category
    */
   @Override
-  public XYChart build() {
+  public CategoryChart build() {
 
-    return new XYChart(this);
+    return new CategoryChart(this);
   }
 }

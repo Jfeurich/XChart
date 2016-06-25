@@ -16,7 +16,7 @@
  */
 package org.knowm.xchart.style;
 
-import org.knowm.xchart.XYSeries.XYSeriesRenderStyle;
+import org.knowm.xchart.charts.XYSeries.XYSeriesRenderStyle;
 
 /**
  * @author timmolter

@@ -26,7 +26,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Map;
 
-import org.knowm.xchart.XYSeries;
+import org.knowm.xchart.charts.XYSeries;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.Series_AxesChart;
 import org.knowm.xchart.internal.chartpart.RenderableSeries.LegendRenderType;

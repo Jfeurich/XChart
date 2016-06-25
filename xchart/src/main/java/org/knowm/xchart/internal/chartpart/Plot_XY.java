@@ -16,7 +16,7 @@
  */
 package org.knowm.xchart.internal.chartpart;
 
-import org.knowm.xchart.XYSeries;
+import org.knowm.xchart.charts.XYSeries;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.style.AxesChartStyler;
 import org.knowm.xchart.style.XYStyler;

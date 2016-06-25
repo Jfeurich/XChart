@@ -25,7 +25,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.Map;
 
-import org.knowm.xchart.PieSeries;
+import org.knowm.xchart.charts.PieSeries;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.style.AxesChartStyler;
 import org.knowm.xchart.style.PieStyler;

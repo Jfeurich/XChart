@@ -16,7 +16,7 @@
  */
 package org.knowm.xchart.style;
 
-import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
+import org.knowm.xchart.charts.CategorySeries.CategorySeriesRenderStyle;
 
 /**
  * @author timmolter

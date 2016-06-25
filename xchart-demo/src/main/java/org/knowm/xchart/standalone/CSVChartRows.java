@@ -20,7 +20,7 @@ import org.knowm.xchart.CSVExporter;
 import org.knowm.xchart.CSVImporter;
 import org.knowm.xchart.CSVImporter.DataOrientation;
 import org.knowm.xchart.SwingWrapper;
-import org.knowm.xchart.XYChart;
+import org.knowm.xchart.charts.XYChart;
 
 /**
  * @author timmolter

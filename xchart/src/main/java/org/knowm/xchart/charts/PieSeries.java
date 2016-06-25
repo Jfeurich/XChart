@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.knowm.xchart;
+package org.knowm.xchart.charts;
 
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.chartpart.RenderableSeries;

@@ -25,8 +25,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.knowm.xchart.CategorySeries;
-import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
+import org.knowm.xchart.charts.CategorySeries;
+import org.knowm.xchart.charts.CategorySeries.CategorySeriesRenderStyle;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.internal.Utils;
 import org.knowm.xchart.style.CategoryStyler;

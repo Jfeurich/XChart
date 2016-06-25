@@ -14,39 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.knowm.xchart;
-
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+package org.knowm.xchart.charts;
 
 import org.knowm.xchart.internal.Series_AxesChart;
 import org.knowm.xchart.internal.chartpart.Axis.AxisDataType;
 import org.knowm.xchart.internal.chartpart.RenderableSeries;
 import org.knowm.xchart.internal.chartpart.RenderableSeries.LegendRenderType;
 
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 /**
- * A Series containing category data to be plotted on a Chart
+ * A Series containing X and Y data to be plotted on a Chart
  *
  * @author timmolter
  */
-public class CategorySeries extends Series_AxesChart {
+public class XYSeries extends Series_AxesChart {
 
-  public enum CategorySeriesRenderStyle implements RenderableSeries {
+  public enum XYSeriesRenderStyle implements RenderableSeries {
 
     Line(LegendRenderType.Line),
 
     Area(LegendRenderType.Line),
 
-    Scatter(LegendRenderType.Scatter),
-
-    Bar(LegendRenderType.Box),
-
-    Stick(LegendRenderType.Line);
+    Scatter(LegendRenderType.Scatter);
 
     private final LegendRenderType legendRenderType;
 
-    CategorySeriesRenderStyle(LegendRenderType legendRenderType) {
+    XYSeriesRenderStyle(LegendRenderType legendRenderType) {
       this.legendRenderType = legendRenderType;
     }
 
@@ -57,7 +53,7 @@ public class CategorySeries extends Series_AxesChart {
     }
   }
 
-  private CategorySeriesRenderStyle chartCategorySeriesRenderStyle = null;
+  private XYSeriesRenderStyle chartXYSeriesRenderStyle = null;
 
   /**
    * Constructor
@@ -67,27 +63,26 @@ public class CategorySeries extends Series_AxesChart {
    * @param yData
    * @param errorBars
    */
-  public CategorySeries(String name, List<?> xData, List<? extends Number> yData, List<? extends Number> errorBars) {
+  public XYSeries(String name, List<?> xData, List<? extends Number> yData, List<? extends Number> errorBars) {
 
     super(name, xData, yData, errorBars);
-
   }
 
-  public CategorySeriesRenderStyle getChartCategorySeriesRenderStyle() {
+  public XYSeriesRenderStyle getChartXYSeriesRenderStyle() {
 
-    return chartCategorySeriesRenderStyle;
+    return chartXYSeriesRenderStyle;
   }
 
-  public CategorySeries setChartCategorySeriesRenderStyle(CategorySeriesRenderStyle chartXYSeriesRenderStyle) {
+  public XYSeries setChartXYSeriesRenderStyle(XYSeriesRenderStyle chartXYSeriesRenderStyle) {
 
-    this.chartCategorySeriesRenderStyle = chartXYSeriesRenderStyle;
+    this.chartXYSeriesRenderStyle = chartXYSeriesRenderStyle;
     return this;
   }
 
   @Override
   public LegendRenderType getLegendRenderType() {
 
-    return chartCategorySeriesRenderStyle.getLegendRenderType();
+    return chartXYSeriesRenderStyle.getLegendRenderType();
   }
 
   @Override
@@ -103,11 +98,8 @@ public class CategorySeries extends Series_AxesChart {
     else if (dataPoint instanceof Date) {
       axisType = AxisDataType.Date;
     }
-    else if (dataPoint instanceof String) {
-      axisType = AxisDataType.String;
-    }
     else {
-      throw new IllegalArgumentException("Series data must be either Number, Date or String type!!!");
+      throw new IllegalArgumentException("Series data must be either Number or Date type!!!");
     }
     return axisType;
   }

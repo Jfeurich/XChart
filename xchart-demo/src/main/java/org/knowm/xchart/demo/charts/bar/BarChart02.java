@@ -25,9 +25,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.CategoryChartBuilder;
-import org.knowm.xchart.CategorySeries;
+import org.knowm.xchart.charts.CategoryChart;
+import org.knowm.xchart.charts.CategoryChartBuilder;
+import org.knowm.xchart.charts.CategorySeries;
 import org.knowm.xchart.SwingWrapper;
 import org.knowm.xchart.demo.charts.ExampleChart;
 import org.knowm.xchart.style.Styler.ChartTheme;

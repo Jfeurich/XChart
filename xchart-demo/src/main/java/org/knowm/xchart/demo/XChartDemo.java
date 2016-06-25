@@ -31,7 +31,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeSelectionModel;
 
-import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.charts.XChartPanel;
 import org.knowm.xchart.demo.charts.area.AreaChart01;
 import org.knowm.xchart.demo.charts.area.AreaChart02;
 import org.knowm.xchart.demo.charts.area.AreaLineChart03;

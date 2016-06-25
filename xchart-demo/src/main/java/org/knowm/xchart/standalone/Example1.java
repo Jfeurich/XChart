@@ -20,8 +20,8 @@ import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.BitmapEncoder.BitmapFormat;
 import org.knowm.xchart.VectorGraphicsEncoder;
 import org.knowm.xchart.VectorGraphicsEncoder.VectorGraphicsFormat;
-import org.knowm.xchart.XYChart;
-import org.knowm.xchart.XYSeries;
+import org.knowm.xchart.charts.XYChart;
+import org.knowm.xchart.charts.XYSeries;
 import org.knowm.xchart.style.markers.SeriesMarkers;
 
 /**

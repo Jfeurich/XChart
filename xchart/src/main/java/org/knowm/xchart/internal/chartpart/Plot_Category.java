@@ -18,8 +18,8 @@ package org.knowm.xchart.internal.chartpart;
 
 import java.awt.Graphics2D;
 
-import org.knowm.xchart.CategorySeries;
-import org.knowm.xchart.CategorySeries.CategorySeriesRenderStyle;
+import org.knowm.xchart.charts.CategorySeries;
+import org.knowm.xchart.charts.CategorySeries.CategorySeriesRenderStyle;
 import org.knowm.xchart.internal.Series;
 import org.knowm.xchart.style.AxesChartStyler;
 import org.knowm.xchart.style.CategoryStyler;
