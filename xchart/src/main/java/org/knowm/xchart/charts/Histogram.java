@@ -28,8 +28,7 @@ import java.util.List;
  */
 public class Histogram {
 
-  private List<Double> xAxisData; // bin centers
-  private List<Double> yAxisData; // frequency counts
+  private AxisData axisData;
   private final Collection<? extends Number> originalData;
   private final int numBins;
   private final double min;
@@ -45,6 +44,7 @@ public class Histogram {
 
     this.numBins = numBins;
     this.originalData = data;
+    this.axisData = new AxisData();
 
     Double tempMax = -Double.MAX_VALUE;
     Double tempMin = Double.MAX_VALUE;
@@ -77,6 +77,7 @@ public class Histogram {
     this.originalData = data;
     this.min = min;
     this.max = max;
+    this.axisData = new AxisData();
 
     init();
   }
@@ -105,26 +106,27 @@ public class Histogram {
         tempYAxisData[bin] += 1;
       }
     }
-    yAxisData = new ArrayList<Double>(numBins);
+    List<Double> yAxisData = new ArrayList<Double>(numBins);
     for (double d : tempYAxisData) {
       yAxisData.add(d);
     }
-
+    axisData.setyAxisData(yAxisData);
     // x axis data
-    xAxisData = new ArrayList<Double>(numBins);
+    List<Double> xAxisData = new ArrayList<Double>(numBins);
     for (int i = 0; i < numBins; i++) {
       xAxisData.add(((i * (max - min)) / numBins + min) + binSize / 2);
     }
+    axisData.setxAxisData(xAxisData);
   }
 
   public List<Double> getxAxisData() {
 
-    return xAxisData;
+    return axisData.getxAxisData();
   }
 
   public List<Double> getyAxisData() {
 
-    return yAxisData;
+    return axisData.getyAxisData();
   }
 
   public Collection<? extends Number> getOriginalData() {
